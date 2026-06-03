@@ -37,7 +37,9 @@ st.markdown("""
     /* ── Streamlit gürültüsünü tamamen temizle ── */
     #MainMenu, footer, header[data-testid="stHeader"],
     [data-testid="stToolbar"], [data-testid="stStatusWidget"],
-    .stDeployButton { display: none !important; }
+    [data-testid="stDeployButton"], .stDeployButton,
+    .viewerBadge_container, [data-testid="viewerBadge"],
+    [data-testid="manage-app-button"] { display: none !important; }
 
     /* ── Sıfır padding / margin ve Bouncing (Rubber-banding) engelle ── */
     html, body { 
