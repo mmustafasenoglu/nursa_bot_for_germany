@@ -76,7 +76,7 @@ def create_faiss_index(chunks):
 
 if __name__ == "__main__":
     print("=" * 50)
-    print("🩺 NurseMate AI — Belge Yükleme & Index Oluşturma")
+    print("🩺 PflegeKompassAI — Belge Yükleme & Index Oluşturma")
     print("=" * 50)
 
     if not Path(DATA_DIR).exists():

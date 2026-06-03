@@ -11,7 +11,7 @@ TEST_CASES = [
 ]
 
 print("="*60)
-print("🩺 NurseMate AI - RAG Pipeline Test Scripti")
+print("🩺 PflegeKompassAI - RAG Pipeline Test Scripti")
 print("="*60 + "\n")
 
 for i, tc in enumerate(TEST_CASES, 1):

@@ -1,5 +1,5 @@
 """
-app.py — NurseMate AI Streamlit Arayüzü
+app.py — PflegeKompassAI Streamlit Arayüzü
 Hemşirelik Ausbildung öğrencileri için bilingual (DE/EN) chatbot
 """
 
@@ -23,7 +23,7 @@ if not os.path.exists(FAISS_INDEX_PATH):
 
 # ── Sayfa Yapılandırması ────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="NurseMate AI — KI-Assistent für die Pflegeausbildung",
+    page_title="PflegeKompassAI — KI-Assistent für die Pflegeausbildung",
     page_icon="🩺",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -321,8 +321,8 @@ TEXTS = {
         "placeholder": "Frage mich alles über die Pflegeausbildung...",
         "clear": "🗑️ Chat leeren",
         "quick_label": "Häufige Fragen",
-        "empty_title": "Willkommen bei NurseMate,<br>Wie kann ich helfen?",
-        "thinking": "NurseMate denkt nach...",
+        "empty_title": "Willkommen bei PflegeKompassAI,<br>Wie kann ich helfen?",
+        "thinking": "PflegeKompassAI denkt nach...",
         "tagline": "KI-Assistent für die Pflegeausbildung",
         "quick_answer_prefix": "⚡ **Schnelle Antwort:**\n\n",
         "quick_questions": [
@@ -336,12 +336,12 @@ TEXTS = {
             {"q": "Was ist die 5-R-Regel bei der Medikamentengabe?", "a": "Die 5-R-Regel ist ein essenzieller Sicherheitsstandard in der Pflege, um Medikationsfehler zu vermeiden. Vor jeder Medikamentengabe müssen 5 Punkte zwingend kontrolliert werden:\n1. **Richtiger Patient:** Name und Geburtsdatum abgleichen.\n2. **Richtiges Medikament:** Präparat mit der ärztlichen Anordnung vergleichen.\n3. **Richtige Dosierung:** Konzentration und Menge genau prüfen.\n4. **Richtige Applikationsform:** Überprüfen, wie das Medikament verabreicht werden soll (z.B. oral, i.v., s.c.).\n5. **Richtiger Zeitpunkt:** Gabe zum vorgeschriebenen Intervall/Uhrzeit.\n*(Hinweis: In der modernen Pflegepraxis wird oft auch die 6-R-Regel gelehrt, bei der als 6. Punkt die 'Richtige Dokumentation' hinzukommt).*"},
         ],
         "sidebar_lang": "🌐 Sprache",
-        "sidebar_about_title": "📖 Über NurseMate AI",
+        "sidebar_about_title": "📖 Über PflegeKompassAI",
         "sidebar_about": """
-**NurseMate AI** hilft Pflegeauszubildenden in Deutschland, schnell Antworten auf Fragen zur Ausbildung, zu klinischen Grundlagen und zum Pflegealltag zu finden.
+**PflegeKompassAI** hilft Pflegeauszubildenden in Deutschland, schnell Antworten auf Fragen zur Ausbildung, zu klinischen Grundlagen und zum Pflegealltag zu finden.
 
 **Warum wurde es entwickelt?**
-Viele internationale Pflegestudierende kämpfen mit der deutschen Sprachbarriere und dem komplexen Ausbildungssystem. NurseMate AI überbrückt diese Lücke — auf Deutsch und Englisch, kostenlos.
+Viele internationale Pflegestudierende kämpfen mit der deutschen Sprachbarriere und dem komplexen Ausbildungssystem. PflegeKompassAI überbrückt diese Lücke — auf Deutsch und Englisch, kostenlos.
 
 **Themen:**
 - 🏥 Ausbildungsstruktur & Bewerbung
@@ -359,15 +359,15 @@ Viele internationale Pflegestudierende kämpfen mit der deutschen Sprachbarriere
         "f_c3": "Über das Projekt",
         "f_topics": ["Ausbildungsstruktur", "Vitalzeichen & Klinik", "Hygiene & Infektionsschutz", "Medikamentengabe", "Pflegedokumentation", "Notfallsituationen"],
         "f_about": ["Für internationale Pflegestudierende", "Überbrückt Sprach- & Wissensbarrieren", "Kostenlos & offen zugänglich", "v1.0 — aktiv in Entwicklung"],
-        "f_copy": "© {year} NurseMate AI. Alle Rechte vorbehalten.",
+        "f_copy": "© {year} PflegeKompassAI. Alle Rechte vorbehalten.",
         "f_by": "Entwickelt von",
     },
     "en": {
         "placeholder": "Ask me anything about nursing training in Germany...",
         "clear": "🗑️ Clear Chat",
         "quick_label": "Quick Questions",
-        "empty_title": "Welcome to NurseMate,<br>How can I help you?",
-        "thinking": "NurseMate is thinking...",
+        "empty_title": "Welcome to PflegeKompassAI,<br>How can I help you?",
+        "thinking": "PflegeKompassAI is thinking...",
         "tagline": "Nursing Ausbildung Assistant",
         "quick_answer_prefix": "⚡ **Quick Answer:**\n\n",
         "quick_questions": [
@@ -381,12 +381,12 @@ Viele internationale Pflegestudierende kämpfen mit der deutschen Sprachbarriere
             {"q": "What are the 5 rights of medication safety?", "a": "The 5 Rights of medication administration (5-R-Regel) is a fundamental safety protocol designed to prevent medication errors. Before administering any drug, a nurse must verify:\n1. **Right Patient (Richtiger Patient):** Always check the patient's name and date of birth.\n2. **Right Medication (Richtiges Medikament):** Double-check the drug name against the prescription.\n3. **Right Dose (Richtige Dosierung):** Ensure the correct concentration and amount.\n4. **Right Route (Richtige Applikationsform):** Ensure it is given correctly (e.g., oral, IV, subcutaneous).\n5. **Right Time (Richtiger Zeitpunkt):** Administer at the correct interval or time of day.\n*(Note: Some modern guidelines use the 6-R rule, adding 'Right Documentation').*"},
         ],
         "sidebar_lang": "🌐 Language",
-        "sidebar_about_title": "📖 About NurseMate AI",
+        "sidebar_about_title": "📖 About PflegeKompassAI",
         "sidebar_about": """
-**NurseMate AI** helps nursing students in Germany quickly find answers about their training, clinical basics, and everyday nursing practice.
+**PflegeKompassAI** helps nursing students in Germany quickly find answers about their training, clinical basics, and everyday nursing practice.
 
 **Why was it built?**
-Many international nursing students struggle with Germany's language barrier and complex training system. NurseMate AI bridges that gap — in both English and German, completely free.
+Many international nursing students struggle with Germany's language barrier and complex training system. PflegeKompassAI bridges that gap — in both English and German, completely free.
 
 **Topics:**
 - 🏥 Training structure & application
@@ -404,7 +404,7 @@ Many international nursing students struggle with Germany's language barrier and
         "f_c3": "About the Project",
         "f_topics": ["Training structure & application", "Vital signs & clinical basics", "Hygiene & infection control", "Medication (5 Rights)", "Nursing documentation", "Emergency situations"],
         "f_about": ["Built for international nursing students", "Bridges language & knowledge gaps", "Free & openly accessible", "v1.0 — actively in development"],
-        "f_copy": "© {year} NurseMate AI. All rights reserved.",
+        "f_copy": "© {year} PflegeKompassAI. All rights reserved.",
         "f_by": "Built by",
     },
 }
@@ -452,7 +452,7 @@ nav_brand, nav_space, nav_en_col, nav_de_col = st.columns([5, 2, 1, 1])
 with nav_brand:
     # Bu gizli div sayesinde CSS `:has(.nav-marker)` bu satiri bulup navbar stili verebilecek
     st.markdown(
-        f'<div class="nav-marker nm-brand">🩺 NurseMate AI'
+        f'<div class="nav-marker nm-brand">🩺 PflegeKompassAI'
         f'<span class="nm-brand-tag">— {t["tagline"]}</span></div>',
         unsafe_allow_html=True,
     )
@@ -533,7 +533,7 @@ desc   = "AI assistant for nursing Ausbildung in Germany" if lang == "en" else "
 footer_html = (
 '<div class="nm-footer">'
 '<div class="nm-footer-left">'
-'🩺 <strong>NurseMate AI</strong>'
+'🩺 <strong>PflegeKompassAI</strong>'
 f'<span class="nm-footer-sep"> | </span><span class="nm-footer-desc">{desc}</span>'
 f'<span class="nm-footer-sep"> | </span><span class="nm-footer-copy">{f_copy}</span>'
 '</div>'

@@ -1,4 +1,4 @@
-# 🩺 NurseMate AI — Nursing Ausbildung Assistant
+# 🩺 PflegeKompassAI — Nursing Ausbildung Assistant
 
 An AI-powered chatbot for nursing students starting their **Pflegeausbildung** in Germany.
 Built with a **Retrieval-Augmented Generation (RAG)** architecture to provide accurate,
@@ -11,7 +11,7 @@ hallucination-free answers based on official nursing guidelines.
 
 ## 🚀 Live Demo
 
-👉 **[Open NurseMate AI](https://your-app-name.streamlit.app)** *(replace after deploying)*
+👉 **[Open PflegeKompassAI](https://your-app-name.streamlit.app)** *(replace after deploying)*
 
 ---
 

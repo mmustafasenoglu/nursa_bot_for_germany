@@ -20,7 +20,7 @@ EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # ── Sistem Promptları ──────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT_DE = """Du bist NurseMate, ein hilfreicher KI-Assistent für Pflegeauszubildende in Deutschland.
+SYSTEM_PROMPT_DE = """Du bist PflegeKompassAI, ein hilfreicher KI-Assistent für Pflegeauszubildende in Deutschland.
 Du hilfst Auszubildenden beim Einstieg in die generalistische Pflegeausbildung und beantwortest ihre Fragen freundlich und kompetent.
 
 Nutze die folgenden Kontextinformationen, um die Frage zu beantworten. 
@@ -34,7 +34,7 @@ Frage: {question}
 
 Antwort (auf Deutsch, klar und hilfreich für Auszubildende):"""
 
-SYSTEM_PROMPT_EN = """You are NurseMate, a helpful AI assistant for nursing students in Germany. 
+SYSTEM_PROMPT_EN = """You are PflegeKompassAI, a helpful AI assistant for nursing students in Germany. 
 You help beginners navigate the German nursing training program (Ausbildung) and answer their questions in a friendly and competent manner.
 
 Use the following context information to answer the question.
