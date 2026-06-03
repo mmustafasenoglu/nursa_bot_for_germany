@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-from langchain_community.document_loaders import TextLoader, DirectoryLoader
+from langchain_community.document_loaders import TextLoader, DirectoryLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -20,15 +20,28 @@ EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 
 def load_documents(data_dir: str):
-    """data/ klasöründeki tüm .txt dosyalarını yükler."""
-    loader = DirectoryLoader(
+    """data/ klasöründeki tüm .txt ve .pdf dosyalarını yükler."""
+    txt_loader = DirectoryLoader(
         data_dir,
         glob="**/*.txt",
         loader_cls=TextLoader,
         loader_kwargs={"encoding": "utf-8"},
         show_progress=True,
     )
-    documents = loader.load()
+    pdf_loader = DirectoryLoader(
+        data_dir,
+        glob="**/*.pdf",
+        loader_cls=PyPDFLoader,
+        show_progress=True,
+    )
+    
+    documents = txt_loader.load()
+    try:
+        pdf_docs = pdf_loader.load()
+        documents.extend(pdf_docs)
+    except Exception as e:
+        print(f"⚠️ PDF yükleme hatası: {e}")
+        
     print(f"✅ {len(documents)} belge yüklendi.")
     return documents
 

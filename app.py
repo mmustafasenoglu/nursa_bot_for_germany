@@ -23,7 +23,7 @@ if not os.path.exists(FAISS_INDEX_PATH):
 
 # ── Sayfa Yapılandırması ────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="NurseMate AI — Nursing Ausbildung Assistant",
+    page_title="NurseMate AI — KI-Assistent für die Pflegeausbildung",
     page_icon="🩺",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -67,6 +67,12 @@ st.markdown("""
     div[data-testid="stChatInput"] {
         bottom: 0 !important;
     }
+    
+    /* Streamlit Cloud'daki chat input kullanıcı profil fotoğrafını gizle */
+    div[data-testid="stChatInput"] img {
+        display: none !important;
+    }
+    
     /* Streamlit'in section üst padding'i */
     section[data-testid="stMain"] > div:first-child {
         padding-top: 0 !important;
@@ -405,7 +411,7 @@ Many international nursing students struggle with Germany's language barrier and
 
 # ── Session State ──────────────────────────────────────────────────────────────
 if "messages"          not in st.session_state: st.session_state.messages = []
-if "language"          not in st.session_state: st.session_state.language = "en"
+if "language"          not in st.session_state: st.session_state.language = "de"
 
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
@@ -414,10 +420,10 @@ with st.sidebar:
     t    = TEXTS[lang]
 
     st.markdown(f"### {t['sidebar_lang']}")
-    choice = st.radio("lang", ["🇬🇧 English", "🇩🇪 Deutsch"],
-                      index=0 if lang == "en" else 1,
+    choice = st.radio("lang", ["🇩🇪 Deutsch", "🇬🇧 English"],
+                      index=0 if lang == "de" else 1,
                       label_visibility="collapsed")
-    new_lang = "en" if "English" in choice else "de"
+    new_lang = "de" if "Deutsch" in choice else "en"
     if new_lang != st.session_state.language:
         st.session_state.language = new_lang
         st.rerun()
