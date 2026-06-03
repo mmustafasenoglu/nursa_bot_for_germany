@@ -1,0 +1,21 @@
+# Environment variables — NEVER upload to GitHub!
+.env
+
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+
+# Streamlit secrets (for local testing)
+.streamlit/secrets.toml
+fix_*.py
+fix_*.py

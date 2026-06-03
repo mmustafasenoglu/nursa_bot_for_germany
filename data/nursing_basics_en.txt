@@ -1,0 +1,218 @@
+# NURSING BASICS — CLINICAL KNOWLEDGE FOR NURSING STUDENTS (ENGLISH)
+
+## 1. VITAL SIGNS — MEASUREMENT AND MONITORING
+
+### Blood Pressure (Blutdruck)
+Normal values: 120/80 mmHg (systolic/diastolic)
+- Hypotension (low blood pressure): below 100/60 mmHg → dizziness, weakness, fainting risk
+- Hypertension (high blood pressure): above 140/90 mmHg → headaches, cardiovascular risk
+Measurement: Upper arm cuff, patient should rest 5 minutes beforehand
+Documentation: Always record value, time, and which arm (left/right)
+
+### Pulse (Puls)
+Normal range for adults: 60–100 beats per minute (bpm)
+- Bradycardia: below 60 bpm → slow heart rate
+- Tachycardia: above 100 bpm → fast heart rate
+Measurement: Radial artery (inside of wrist), count for 30 seconds and multiply by 2
+
+### Body Temperature (Körpertemperatur)
+Normal range: 36.5°C – 37.5°C (97.7°F – 99.5°F)
+- Subfebrile: 37.5°C – 38.0°C
+- Fever (Fieber): above 38°C (100.4°F)
+- High fever: above 39.5°C (103.1°F)
+- Hypothermia: below 35°C (95°F)
+Measurement sites: oral, axillary (armpit), rectal, or ear (tympanic)
+
+### Respiratory Rate (Atemfrequenz)
+Normal for adults: 12–20 breaths per minute
+- Bradypnoea: below 12/min → abnormally slow breathing
+- Tachypnoea: above 20/min → abnormally fast breathing
+- Dyspnoea: shortness of breath / laboured breathing
+
+### Oxygen Saturation — SpO₂ (Sauerstoffsättigung)
+Normal: 95–100%
+- Below 90%: Warning sign — assess need for supplemental oxygen
+- Measurement: Pulse oximeter clipped to finger
+
+## 2. HYGIENE AND INFECTION CONTROL
+
+### WHO 5 Moments of Hand Hygiene
+1. BEFORE patient contact
+2. BEFORE an aseptic/clean procedure
+3. AFTER contact with body fluids
+4. AFTER patient contact
+5. AFTER contact with the patient's environment
+
+Hand disinfection technique:
+- Apply 3–5 ml alcohol-based hand rub
+- Rub for 30 seconds covering: palms, backs of hands, between fingers, thumbs, fingertips
+
+### Personal Protective Equipment (PPE / Schutzausrüstung)
+- Disposable gloves: Required whenever contacting body fluids
+- Surgical mask (MNS): For droplet infections
+- FFP2/FFP3 respirator: For airborne infections (e.g., TB, COVID-19)
+- Protective gown (Schutzkittel): For isolation patients
+- Eye protection: When splash risk exists
+
+### Types of Isolation
+- Contact isolation: For MRSA, Norovirus → gown + gloves
+- Droplet isolation: For influenza → surgical mask
+- Airborne isolation: For tuberculosis, measles → single room + FFP2 mask
+
+## 3. BASIC NURSING CARE (GRUNDPFLEGE)
+
+### Full Body Wash (Ganzkörperwäsche)
+Procedure:
+1. Prepare materials: wash bowl, washcloths, towels, clean clothing
+2. Preserve dignity: Only expose the area being washed
+3. Order: Face → neck → upper body → arms → hands → intimate area → legs → back
+4. Change water after intimate area!
+5. Skin inspection: Check for pressure sores, redness, wounds
+6. Skin care: Apply patient's own moisturizer/lotion
+7. Dress patient and position comfortably
+
+### Oral Care (Mundpflege)
+Important for: unconscious patients, stroke patients, ventilated patients
+Procedure: Clean teeth/dentures, keep mucous membranes moist, apply lip balm
+
+### Pressure Ulcer Prevention (Dekubitusprophylaxe)
+Decubitus (pressure ulcer) = skin damage from prolonged pressure
+Risk areas: heels, sacrum/tailbone, shoulder blades, back of head, ankles
+Prevention:
+- Position changes every 2 hours (30° positioning, soft mattress overlays)
+- Pressure-relieving equipment: special mattresses, heel protectors
+- Regular skin inspection and moisturizing
+- Ensure adequate hydration
+
+## 4. MEDICATION ADMINISTRATION (BASICS)
+
+### The 5 Rights of Medication Safety (5-R-Regel)
+1. Right Patient — verify identity (check name band!)
+2. Right Medication
+3. Right Dose
+4. Right Time
+5. Right Route (oral, IV, SC, IM, etc.)
+
+### Routes of Administration
+- Oral (p.o.): By mouth — tablets, capsules, drops
+- Sublingual: Under the tongue (e.g., nitroglycerin for angina)
+- Rectal: Via rectum (suppositories)
+- Subcutaneous (SC): Under the skin (e.g., insulin, heparin)
+- Intramuscular (IM): Into the muscle (e.g., vaccines)
+- Intravenous (IV): Directly into a vein (infusions, fast action)
+- Transdermal: Through the skin (patches)
+- Inhalation: Via airways (asthma inhalers)
+
+### Documentation of Medication
+EVERY medication given must be documented immediately:
+- Drug name, dose, time, route of administration
+- Name/initials of the administering nurse
+- Special notes (e.g., patient vomited, side effects observed)
+
+## 5. NURSING DOCUMENTATION (PFLEGEDOKUMENTATION)
+
+### What Gets Documented?
+- Vital signs (blood pressure, pulse, temperature, respiration, SpO₂)
+- Nursing care activities (hygiene, positioning, wound dressing changes)
+- Medications administered
+- Fluid balance (intake and output)
+- Bowel and bladder function
+- Pain assessment (NRS scale: 0–10; 0 = no pain, 10 = worst possible pain)
+- Patient observations and changes in condition
+- Doctor's orders and their execution
+
+### Principles of Good Documentation
+1. Timely: Document immediately after performing care
+2. Legible: Clear and readable handwriting (or digital entry)
+3. Accurate: Cross out errors with one line, sign, and correct (never use correction fluid)
+4. Complete: No gaps or missing information
+5. Objective: Record observations, not assumptions
+6. Confidential: Patient records = sensitive data → medical confidentiality (Schweigepflicht) applies
+
+## 6. NUTRITION AND FLUIDS
+
+### Recognizing Malnutrition (Mangelernährung)
+- Weight loss > 5% in 3 months or > 10% in 6 months
+- BMI below 18.5 kg/m²
+- Screening tools: MNA (Mini Nutritional Assessment) or NRS 2002
+
+### Dysphagia (Schluckstörung — Swallowing Disorder)
+Common after: Stroke, neurological conditions, dementia
+Symptoms: Coughing during meals, choking, refusing food, weight loss
+Management: Speech therapy (Logopädie), modified texture diet, thickened fluids
+
+### Fluid Balance
+Normal daily fluid intake: 1.5 – 2.5 litres
+Intake: Drinking fluids + IV infusions + fluids in food
+Output: Urine + stool + perspiration + respiration (~500 ml/day)
+Balance = Intake minus Output (should be approximately zero)
+
+## 7. RECOGNIZING EMERGENCY SITUATIONS
+
+### Cardiac Arrest (Herzkreislaufstillstand)
+Signs: Unconsciousness, no normal breathing, no pulse
+Immediate action: Call emergency (112 or internal code), begin BLS/CPR
+CPR ratio: 30 chest compressions : 2 rescue breaths
+Rate: 100–120 compressions/min, depth: 5–6 cm
+
+### Stroke (Schlaganfall) — FAST Assessment
+F — Face: Is one side of the face drooping?
+A — Arms: Can the patient raise both arms equally?
+S — Speech: Is speech slurred or confused?
+T — Time: Call 112 immediately! Every minute counts!
+
+### Hypoglycaemia (Unterzuckerung — Low Blood Sugar)
+Blood glucose below 70 mg/dl (3.9 mmol/l)
+Symptoms: Trembling, sweating, pallor, confusion, possible unconsciousness
+Management:
+- If conscious: Give glucose tablets, fruit juice, or sugary drink
+- If unconscious: Do NOT give anything orally — call emergency team
+
+### Anaphylaxis (Severe Allergic Reaction)
+Symptoms: Skin rash/urticaria, breathing difficulty, blood pressure drop, loss of consciousness
+Immediate action: Emergency call, adrenaline (EpiPen if available), oxygen, appropriate positioning
+
+## 8. COMMUNICATION WITH PATIENTS
+
+### Therapeutic Communication Principles
+- Active listening: Eye contact, nodding, don't interrupt
+- Open-ended questions: "How are you feeling?" not "Are you okay?"
+- Show empathy: "I understand this must be difficult for you."
+- Biographical work: Get to know the patient's life story (especially in elderly care)
+
+### Communication with Dementia Patients
+- Use simple, short sentences
+- Speak slowly, maintain eye contact
+- Do NOT force reality orientation
+- Validation: Take the patient's feelings seriously
+- Watch for non-verbal cues (facial expressions, body language)
+
+### Breaking Bad News
+- Create a quiet, private environment
+- Speak clearly and avoid medical jargon
+- Allow time for reactions
+- Offer support (chaplain, psychologist, social worker)
+
+## 9. NURSING ETHICS AND PATIENT RIGHTS
+
+### Core Ethical Principles in Nursing
+1. Autonomy: Patient's right to make their own decisions
+2. Beneficence: Acting in the patient's best interest
+3. Non-maleficence: Do no harm
+4. Justice: Fair, equal treatment for all patients
+
+### Patient Rights in Germany
+- Right to information about diagnosis and treatment
+- Right to consent or refuse treatment (Einwilligung)
+- Right to confidentiality (Schweigepflicht)
+- Right to dignity and respect
+- Right to pain management
+- Right to involve family members (with patient consent)
+
+### Medical Confidentiality (Schweigepflicht)
+All patient information is strictly confidential.
+Information may only be shared with:
+- Other members of the direct care team
+- Other healthcare providers involved in care (with patient consent)
+- Emergency services when patient safety is at risk
+Violation of Schweigepflicht is a criminal offense in Germany.

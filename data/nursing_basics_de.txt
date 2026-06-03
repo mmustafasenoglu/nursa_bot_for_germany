@@ -1,0 +1,191 @@
+# PFLEGEWISSEN — GRUNDLAGEN FÜR PFLEGEAUSZUBILDENDE (DEUTSCH)
+
+## 1. VITALZEICHEN MESSEN UND ÜBERWACHEN
+
+### Blutdruckmessung
+Normalwerte: 120/80 mmHg (systolisch/diastolisch)
+- Hypotonie (zu niedriger Blutdruck): unter 100/60 mmHg → Patient fühlt sich schwindelig, schwach
+- Hypertonie (zu hoher Blutdruck): über 140/90 mmHg → Kopfschmerzen, Herzerkrankungsrisiko
+Messung: Am Oberarm mit Blutdruckmanschette, Patient soll 5 Minuten ruhen vorher
+Dokumentation: Werte immer mit Uhrzeit und Arm (links/rechts) dokumentieren
+
+### Puls messen
+Normalpuls Erwachsene: 60–100 Schläge pro Minute (Schläge/min)
+- Bradykardie: unter 60/min → langsamer Herzschlag
+- Tachykardie: über 100/min → schneller Herzschlag
+Messung: A. radialis (Handgelenk innen), 30 Sekunden zählen × 2
+
+### Körpertemperatur
+Normal: 36,5°C – 37,5°C
+- Subfebril: 37,5°C – 38,0°C
+- Fieber (Fieber): über 38°C
+- Hochfieber: über 39,5°C
+- Unterkühlung (Hypothermie): unter 35°C
+Messung: oral, axillär (Achselhöhle), rektal, oder mit Ohrthermometer
+
+### Atemfrequenz
+Normal Erwachsene: 12–20 Atemzüge pro Minute
+- Bradypnoe: unter 12/min → zu langsame Atmung
+- Tachypnoe: über 20/min → zu schnelle Atmung
+- Dyspnoe: Atemnot / erschwerte Atmung
+
+### Sauerstoffsättigung (SpO₂)
+Normal: 95–100%
+- Unter 90%: Warnsignal, Sauerstoffgabe prüfen
+- Messung: Pulsoximeter am Finger
+
+## 2. HYGIENE UND INFEKTIONSSCHUTZ
+
+### Die 5 Momente der Händehygiene (WHO-Standard)
+1. VOR dem Patientenkontakt
+2. VOR einer aseptischen Maßnahme
+3. NACH dem Kontakt mit Körperflüssigkeiten
+4. NACH dem Patientenkontakt
+5. NACH dem Kontakt mit der Patientenumgebung
+
+Händedesinfektion: 3–5 ml alkoholisches Händedesinfektionsmittel, 30 Sekunden einreiben
+Technik: Handflächen, Handrücken, Fingerzwischenräume, Daumen, Fingerkuppen
+
+### Schutzausrüstung (PSA — Persönliche Schutzausrüstung)
+- Einmalhandschuhe: Bei jedem Kontakt mit Körperflüssigkeiten
+- Mund-Nasen-Schutz (MNS): Bei Tröpfcheninfektion
+- FFP2/FFP3-Maske: Bei Aerosolübertragung (z.B. Tuberkulose, COVID-19)
+- Schutzkittel: Bei Isolationspatienten
+- Schutzbrille: Bei Spritzgefahr
+
+### Isolationsarten
+- Kontaktisolation: Bei MRSA, Norovirus → Schutzkittel + Handschuhe
+- Tröpfchenisolation: Bei Influenza → Mund-Nasen-Schutz
+- Aerosolisolation: Bei Tuberkulose, Masern → Einzelzimmer + FFP2
+
+## 3. GRUNDPFLEGE (KÖRPERPFLEGE)
+
+### Ganzkörperwäsche (GKW)
+Durchführung:
+1. Material vorbereiten: Waschschüssel, Waschlappen, Handtücher, frische Wäsche
+2. Würde wahren: Nur Körperbereiche entblößen, die gerade gewaschen werden
+3. Reihenfolge: Gesicht → Hals → Oberkörper → Arme → Hände → Intimbereiche → Beine → Rücken
+4. Wasser wechseln nach Intimbereich!
+5. Hautinspektion: Druckstellen, Rötungen, Wunden beachten
+6. Hautpflege: Eincremen mit körpereigenem Pflegemittel des Patienten
+7. Ankleiden und Positionierung
+
+### Mundpflege
+Wichtig bei: bewusstseinseingeschränkten Patienten, Schlaganfall, beatmeten Patienten
+Durchführung: Zähne/Prothese putzen, Mundschleimhaut feucht halten, Lippen eincremen
+
+### Dekubitusprophylaxe (Druckgeschwür-Vorbeugung)
+Dekubitus = Druckgeschwür durch anhaltenden Druck auf die Haut
+Risikobereiche: Ferse, Steißbein, Schulterblätter, Hinterhaupt, Knöchel
+Prophylaxe:
+- Lagerungswechsel alle 2 Stunden (30°-Lagerung, Weichlagerung)
+- Druckentlastende Hilfsmittel: Spezialmatzratzen, Fersenschützer
+- Hautpflege und -beobachtung
+- Ausreichende Flüssigkeitszufuhr sicherstellen
+
+## 4. MEDIKAMENTENGABE (GRUNDLAGEN)
+
+### Die 5-R-Regel (Sicherheit bei Medikamentengabe)
+1. Richtiger Patient (Identifikation prüfen — Namensarmband!)
+2. Richtiges Medikament
+3. Richtige Dosis
+4. Richtiger Zeitpunkt
+5. Richtiger Applikationsweg (oral, i.v., s.c., i.m.)
+
+### Applikationswege
+- Oral (p.o.): durch den Mund, Tabletten/Kapseln/Tropfen
+- Sublingual: unter die Zunge (z.B. Nitro bei Angina pectoris)
+- Rektal: über den After (Zäpfchen / Suppositorien)
+- Subkutan (s.c.): unter die Haut (z.B. Insulin, Heparin)
+- Intramuskulär (i.m.): in den Muskel (z.B. Impfungen)
+- Intravenös (i.v.): direkt in die Vene (Infusionen, schnelle Wirkung)
+- Transdermal: über die Haut (Pflaster)
+- Inhalativ: über die Atemwege (Asthma-Spray)
+
+### Dokumentationspflicht
+JEDE verabreichte Medikation muss sofort dokumentiert werden:
+- Medikamentenname, Dosis, Uhrzeit, Applikationsweg
+- Name der durchführenden Pflegekraft (Handzeichen)
+- Besonderheiten (z.B. Patient hat gespuckt, Nebenwirkungen)
+
+## 5. PFLEGEDOKUMENTATION
+
+### Was wird dokumentiert?
+- Vitalzeichen (Blutdruck, Puls, Temperatur, Atmung, SpO₂)
+- Pflegemaßnahmen (Körperpflege, Lagerung, Verbandswechsel)
+- Medikamentengabe
+- Flüssigkeitsbilanz (Einfuhr/Ausfuhr)
+- Stuhlgang, Urinausscheidung
+- Schmerzbeurteilung (NRS-Skala: 0–10)
+- Besonderheiten und Beobachtungen
+- Arztanordnungen und deren Ausführung
+
+### Grundsätze der Dokumentation
+1. Zeitnah: Sofort nach Durchführung dokumentieren
+2. Lesbar: Klare, deutliche Schrift
+3. Korrekt: Fehler einmal durchstreichen und gegenzuzeichnen (nicht korrigieren!)
+4. Vollständig: Keine Lücken
+5. Objektiv: Nur Beobachtungen, keine Vermutungen
+6. Vertraulich: Patientenakte = sensible Daten → Schweigepflicht
+
+## 6. ERNÄHRUNG UND FLÜSSIGKEIT
+
+### Mangelernährung erkennen
+- Gewichtsverlust > 5% in 3 Monaten oder > 10% in 6 Monaten
+- BMI unter 18,5 kg/m²
+- Screening-Instrument: MNA (Mini Nutritional Assessment) oder NRS 2002
+
+### Dysphagie (Schluckstörung)
+Häufig nach: Schlaganfall, neurologischen Erkrankungen, Demenz
+Symptome: Husten beim Essen, Verschlucken, Nahrungsverweigerung, Gewichtsverlust
+Maßnahmen: Logopädie, angepasste Kostform (weiche Kost, angedickte Flüssigkeiten)
+
+### Flüssigkeitsbilanz
+Normal tägliche Flüssigkeitszufuhr: 1,5 – 2,5 Liter
+Einfuhr: Trinkmenge + Infusionen + Nahrungsflüssigkeit
+Ausfuhr: Urin + Stuhl + Schweiß + Atemluft (ca. 500 ml/Tag)
+Bilanz = Einfuhr minus Ausfuhr
+
+## 7. NOTFALLSITUATIONEN ERKENNEN
+
+### Herzkreislaufstillstand
+Zeichen: Bewusstlosigkeit, keine normale Atmung, kein Puls
+Sofortmaßnahmen: Notruf (112 oder interne Reanimationsnummer), BLS/CPR starten
+CPR: 30 Herzdruckmassagen : 2 Beatmungen, Frequenz 100–120/min, Tiefe 5–6 cm
+
+### Schlaganfall (Stroke) — FAST-Schema
+F — Face (Gesicht): Hängt eine Seite herab?
+A — Arms (Arme): Kann der Patient beide Arme heben?
+S — Speech (Sprache): Ist die Sprache verwaschen/verständlich?
+T — Time (Zeit): Sofort 112 anrufen! Jede Minute zählt!
+
+### Hypoglykämie (Unterzuckerung)
+Blutzucker unter 70 mg/dl (3,9 mmol/l)
+Symptome: Zittern, Schwitzen, Blässe, Verwirrtheit, Bewusstlosigkeit
+Maßnahmen: Bei Bewusstsein → Traubenzucker/Saft geben
+Bei Bewusstlosigkeit → Notarzt rufen, keine orale Nahrung!
+
+### Anaphylaxie (schwere allergische Reaktion)
+Symptome: Hautausschlag, Atemnot, Blutdruckabfall, Bewusstlosigkeit
+Sofortmaßnahme: Notruf, Adrenalin (Epipen), Sauerstoff, Lagerung
+
+## 8. KOMMUNIKATION MIT PATIENTEN
+
+### Therapeutische Kommunikation
+- Aktives Zuhören: Augenkontakt, nicken, nicht unterbrechen
+- Offene Fragen stellen: "Wie fühlen Sie sich?" statt "Fühlen Sie sich gut?"
+- Empathie zeigen: "Ich verstehe, dass das schwierig für Sie ist."
+- Biographiearbeit: Lebensgeschichte des Patienten kennenlernen (besonders in der Altenpflege)
+
+### Kommunikation bei Demenz
+- Einfache, kurze Sätze verwenden
+- Langsam sprechen, Augenkontakt halten
+- Realitätsorientierung NICHT erzwingen
+- Validierung: Gefühle des Patienten ernst nehmen
+- Nonverbale Kommunikation beachten (Mimik, Körpersprache)
+
+### Überbringen schlechter Nachrichten
+- Ruhige, private Umgebung schaffen
+- Klar und verständlich sprechen (kein Fachjargon)
+- Zeit lassen für Reaktionen
+- Unterstützung anbieten (Seelsorger, Psychologe)
