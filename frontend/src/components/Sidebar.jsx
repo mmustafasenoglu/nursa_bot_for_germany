@@ -1,9 +1,15 @@
 import React from 'react';
+import { X } from 'lucide-react';
 
-const Sidebar = ({ language, setLanguage }) => {
+const Sidebar = ({ language, setLanguage, isOpen, onClose }) => {
   return (
-    <div className="sidebar">
-      <h2>🩺 PflegeKompassAI</h2>
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-header">
+        <h2>🩺 PflegeKompassAI</h2>
+        <button className="close-btn-mobile" onClick={onClose}>
+          <X size={24} />
+        </button>
+      </div>
       
       <div className="sidebar-section lang-section">
         <h3>🌐 {language === 'de' ? 'Sprache' : 'Language'}</h3>

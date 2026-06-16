@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Menu, X } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import ChatMessage from './components/ChatMessage';
 import RightsModal from './components/RightsModal';
@@ -11,6 +11,7 @@ function App() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRightsModalOpen, setIsRightsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -73,11 +74,26 @@ function App() {
 
   return (
     <div className="app-container">
-      <Sidebar language={language} setLanguage={setLanguage} />
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div className="mobile-overlay" onClick={() => setIsSidebarOpen(false)}></div>
+      )}
+
+      <Sidebar 
+        language={language} 
+        setLanguage={setLanguage} 
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
       
       <main className="chat-area">
         <header className="chat-header">
-          <h1>PflegeKompassAI</h1>
+          <div className="header-left">
+            <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={24} />
+            </button>
+            <h1>PflegeKompassAI</h1>
+          </div>
           <button 
             className="header-btn"
             onClick={() => setIsRightsModalOpen(true)}
