@@ -1,0 +1,14 @@
+django>=5.0
+djangorestframework
+django-cors-headers
+python-dotenv
+langchain
+langchain-community
+langchain-core
+langchain-groq
+langchain-huggingface
+faiss-cpu
+sentence-transformers
+
+gunicorn
+whitenoise

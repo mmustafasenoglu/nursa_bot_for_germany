@@ -15,7 +15,8 @@ from langchain_core.runnables import RunnablePassthrough
 
 load_dotenv()
 
-FAISS_INDEX_PATH = "./faiss_index"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FAISS_INDEX_PATH = os.path.join(BASE_DIR, "faiss_index")
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # ── Sistem Promptları ──────────────────────────────────────────────────────────
@@ -90,23 +91,13 @@ def get_vectorstore():
 # ── LLM ───────────────────────────────────────────────────────────────────────
 
 def get_llm():
-    """Groq LLM oluşturur. Streamlit Cloud secrets veya .env'den key alır."""
-    # Önce Streamlit secrets dene (Cloud deployment için)
-    try:
-        import streamlit as st
-        api_key = st.secrets.get("GROQ_API_KEY", "")
-    except Exception:
-        api_key = ""
-
-    # Yoksa .env'den al (local geliştirme için)
-    if not api_key:
-        api_key = os.getenv("GROQ_API_KEY", "")
+    """Groq LLM oluşturur. .env'den key alır."""
+    api_key = os.getenv("GROQ_API_KEY", "")
 
     if not api_key:
         raise ValueError(
             "GROQ_API_KEY bulunamadı!\n"
-            "Local: .env dosyasına GROQ_API_KEY=... ekleyin\n"
-            "Cloud: Streamlit dashboard > Secrets bölümüne ekleyin"
+            ".env dosyasına GROQ_API_KEY=... ekleyin"
         )
     return ChatGroq(
         model="llama-3.1-8b-instant",
