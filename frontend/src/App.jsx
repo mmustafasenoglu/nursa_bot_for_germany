@@ -22,25 +22,6 @@ function App() {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  useEffect(() => {
-    const loadHistory = async () => {
-      try {
-        const history = await getChatHistory();
-        if (history && history.length > 0) {
-          const loaded = [];
-          history.forEach(h => {
-            loaded.push({ role: 'user', content: h.user });
-            loaded.push({ role: 'bot', content: h.bot });
-          });
-          setMessages(loaded);
-        }
-      } catch {
-        // API henüz bağlanamıyor olabilir, sessizce geç
-      }
-    };
-    loadHistory();
-  }, []);
-
   const quickQuestions = {
     de: [
       "Wie lange dauert die Pflegeausbildung?",
@@ -85,8 +66,8 @@ function App() {
     }
   };
 
-  const handleClearChat = async () => {
-    await clearChatHistory();
+  const handleClearChat = () => {
+    clearChatHistory();
     setMessages([]);
   };
 
@@ -103,14 +84,14 @@ function App() {
         <div className="mobile-overlay" onClick={() => setIsSidebarOpen(false)}></div>
       )}
 
-      <Sidebar 
-        language={language} 
-        setLanguage={setLanguage} 
+      <Sidebar
+        language={language}
+        setLanguage={setLanguage}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         onClearChat={handleClearChat}
       />
-      
+
       <main className="chat-area">
         <header className="chat-header">
           <div className="header-left">
@@ -119,7 +100,7 @@ function App() {
             </button>
             <h1>NurseMate AI</h1>
           </div>
-          <button 
+          <button
             className="header-btn"
             onClick={() => setIsRightsModalOpen(true)}
           >
@@ -132,8 +113,8 @@ function App() {
             <div className="empty-state">
               <div className="empty-icon">🩺</div>
               <h2 className="empty-title">
-                {language === 'de' 
-                  ? 'Willkommen bei NurseMate AI' 
+                {language === 'de'
+                  ? 'Willkommen bei NurseMate AI'
                   : 'Welcome to NurseMate AI'}
               </h2>
               <p className="empty-subtitle">
@@ -143,8 +124,8 @@ function App() {
               </p>
               <div className="quick-questions-grid">
                 {quickQuestions[language].map((q, idx) => (
-                  <button 
-                    key={idx} 
+                  <button
+                    key={idx}
                     className="quick-btn"
                     onClick={() => handleSend(q)}
                   >
@@ -185,8 +166,8 @@ function App() {
               onKeyDown={handleKeyPress}
               disabled={isLoading}
             />
-            <button 
-              className="send-btn" 
+            <button
+              className="send-btn"
               onClick={() => handleSend(input)}
               disabled={isLoading || !input.trim()}
             >
@@ -196,10 +177,10 @@ function App() {
         </div>
       </main>
 
-      <RightsModal 
-        isOpen={isRightsModalOpen} 
-        onClose={() => setIsRightsModalOpen(false)} 
-        language={language} 
+      <RightsModal
+        isOpen={isRightsModalOpen}
+        onClose={() => setIsRightsModalOpen(false)}
+        language={language}
       />
     </div>
   );
