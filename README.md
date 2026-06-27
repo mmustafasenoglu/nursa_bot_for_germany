@@ -1,4 +1,4 @@
-# 🩺 PflegeKompassAI — Nursing Ausbildung Assistant
+# 🩺 NurseMate AI — Nursing Ausbildung Assistant
 
 An AI-powered chatbot for nursing students starting their **Pflegeausbildung** in Germany.
 Built with a **Retrieval-Augmented Generation (RAG)** architecture to provide accurate,
@@ -11,7 +11,8 @@ hallucination-free answers based on official nursing guidelines.
 
 ## 🚀 Live Demo
 
-👉 **[Open PflegeKompassAI](https://your-app-name.streamlit.app)** *(replace after deploying)*
+- **Frontend:** [https://nurse-mate-ai.vercel.app](https://nurse-mate-ai.vercel.app)
+- **Backend:** [https://nurse-chat-backend.onrender.com](https://nurse-chat-backend.onrender.com)
 
 ---
 
@@ -19,12 +20,13 @@ hallucination-free answers based on official nursing guidelines.
 
 | Layer | Technology | Why? |
 |---|---|---|
-| **LLM** | Groq API (Llama 3 8B) | Ultra-low latency inference |
-| **Orchestration** | LangChain | RAG pipeline management |
+| **LLM** | Groq API (Llama 3.1 8B) | Ultra-low latency inference |
+| **Orchestration** | LangChain + LCEL | RAG pipeline management |
 | **Vector Store** | FAISS (local) | No cloud limits, instant search |
 | **Embeddings** | HuggingFace `all-MiniLM-L6-v2` | Open-source, fast, accurate |
-| **Frontend** | Streamlit | Clean chat UI, fast deployment |
-| **Language** | Python 3.11+ | |
+| **Backend** | Django 5 + DRF | REST API, scalable |
+| **Frontend** | React 19 + Vite 8 | Modern, fast UI |
+| **Deployment** | Render (backend) + Vercel (frontend) | Free hosting |
 
 ---
 
@@ -37,9 +39,9 @@ User Question
      ↓
 [LangChain] builds context-aware prompt
      ↓
-[Groq / Llama 3] generates answer based ONLY on retrieved context
+[Groq / Llama 3.1] generates answer based ONLY on retrieved context
      ↓
-Streamlit displays answer (no hallucinations)
+React frontend displays answer (no hallucinations)
 ```
 
 ---
@@ -64,51 +66,73 @@ Streamlit displays answer (no hallucinations)
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/nursing-ausbildung-bot.git
-cd nursing-ausbildung-bot
+git clone https://github.com/yourusername/nurse_chat_bpt.git
+cd nurse_chat_bpt
 ```
 
-### 2. Create and activate virtual environment
+### 2. Backend Setup
 ```bash
+cd backend
 python -m venv venv
 source venv/bin/activate        # macOS/Linux
 # venv\Scripts\activate         # Windows
-```
 
-### 3. Install dependencies
-```bash
 pip install -r requirements.txt
-```
 
-### 4. Set up your Groq API key
-Get your free API key at [console.groq.com](https://console.groq.com)
+# Set up your Groq API key
+echo "GROQ_API_KEY=your_groq_api_key_here" > .env
 
-```bash
-# Edit .env file:
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-### 5. Build the FAISS index (run once)
-```bash
+# Build FAISS index
 python ingest.py
+
+# Run backend
+python manage.py runserver
 ```
 
-### 6. Launch the app
+Backend runs at: **http://localhost:8000**
+
+### 3. Frontend Setup
 ```bash
-streamlit run app.py
+cd frontend
+npm install
+
+# Set API URL
+echo "VITE_API_URL=http://127.0.0.1:8000/api" > .env
+
+# Run frontend
+npm run dev
 ```
 
-Open your browser at: **http://localhost:8501**
+Frontend runs at: **http://localhost:5173**
 
 ---
 
-## ☁️ Deploy to Streamlit Cloud (Free)
+## ☁️ Deployment
 
-1. Push your code to GitHub *(make sure `.env` is in `.gitignore`)*
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repository
-4. Add your secret: **Settings → Secrets** → add `GROQ_API_KEY = "your_key"`
-5. Deploy! 🎉
+### Backend (Render)
+1. Push code to GitHub
+2. Go to [render.com](https://render.com) → New Web Service
+3. Connect GitHub repo
+4. Settings:
+   - **Root Directory:** `backend`
+   - **Build Command:** `pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate && python ingest.py`
+   - **Start Command:** `gunicorn core.wsgi:application --bind 0.0.0.0:$PORT`
+5. Add environment variables:
+   - `SECRET_KEY` (generate)
+   - `DEBUG=False`
+   - `RENDER=True`
+   - `GROQ_API_KEY=your_key`
+6. Deploy!
+
+### Frontend (Vercel)
+1. Go to [vercel.com](https://vercel.com) → New Project
+2. Connect GitHub repo
+3. Settings:
+   - **Root Directory:** `frontend`
+   - **Framework:** Vite
+4. Add environment variable:
+   - `VITE_API_URL=https://your-backend.onrender.com/api`
+5. Deploy!
 
 ---
 
@@ -116,17 +140,26 @@ Open your browser at: **http://localhost:8501**
 
 ```
 nurse_chat_bpt/
-├── app.py              # Streamlit UI
-├── rag_pipeline.py     # RAG engine (LangChain + FAISS + Groq)
-├── ingest.py           # One-time document ingestion script
-├── data/
-│   ├── ausbildung_guide_de.txt   # German Ausbildung guide
-│   ├── ausbildung_guide_en.txt   # English Ausbildung guide
-│   ├── nursing_basics_de.txt     # German clinical knowledge
-│   └── nursing_basics_en.txt     # English clinical knowledge
-├── faiss_index/        # Auto-generated FAISS vectors (gitignored)
-├── requirements.txt
-├── .env                # API keys (gitignored — never commit!)
+├── backend/                 # Django REST API
+│   ├── core/               # Django project settings
+│   ├── api/                # API endpoints
+│   ├── rag_pipeline.py     # RAG engine (LangChain + FAISS + Groq)
+│   ├── ingest.py           # Document ingestion script
+│   ├── data/               # Knowledge base (txt + pdf)
+│   ├── faiss_index/        # Generated FAISS vectors
+│   ├── requirements.txt
+│   ├── build.sh            # Render build script
+│   └── manage.py
+├── frontend/               # React + Vite
+│   ├── src/
+│   │   ├── App.jsx         # Main component
+│   │   ├── api.js          # API client
+│   │   └── components/     # UI components
+│   ├── package.json
+│   ├── vercel.json
+│   └── vite.config.js
+├── render.yaml             # Render deployment config
+├── .env                    # API keys (gitignored)
 ├── .gitignore
 └── README.md
 ```
@@ -136,18 +169,16 @@ nurse_chat_bpt/
 ## 🔒 Security Notes
 
 - The `.env` file is listed in `.gitignore` and will **never** be uploaded to GitHub
-- When deploying to Streamlit Cloud, add your API key via the **Secrets** panel, not in code
-- FAISS index is stored locally — no external database required
+- FAISS index is generated during build — no external database required
+- CORS is configured to allow only the frontend domain
 
 ---
 
 ## 👤 About
 
-Built by **Mustafa Şenoğlu** as a portfolio project demonstrating:
+Built by **Mustafa Şenoğlu** and **Müslüm Evin** as a portfolio project demonstrating:
 - RAG (Retrieval-Augmented Generation) architecture
-- LLM integration (Groq / Llama 3)
+- LLM integration (Groq / Llama 3.1)
 - Vector database operations (FAISS)
-- End-to-end ML product deployment
-
-📧 Contact: [your-email@example.com]
-🔗 LinkedIn: [your-linkedin-url]
+- Full-stack development (Django + React)
+- Cloud deployment (Render + Vercel)

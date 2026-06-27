@@ -1,11 +1,10 @@
-import React from 'react';
 import { X } from 'lucide-react';
 
-const Sidebar = ({ language, setLanguage, isOpen, onClose }) => {
+const Sidebar = ({ language, setLanguage, isOpen, onClose, onClearChat }) => {
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
-        <h2>🩺 PflegeKompassAI</h2>
+        <h2>🩺 NurseMate AI</h2>
         <button className="close-btn-mobile" onClick={onClose}>
           <X size={24} />
         </button>
@@ -30,31 +29,37 @@ const Sidebar = ({ language, setLanguage, isOpen, onClose }) => {
       </div>
 
       <div className="sidebar-section">
-        <h3>📖 {language === 'de' ? 'Über PflegeKompassAI' : 'About PflegeKompassAI'}</h3>
+        <h3>📖 {language === 'de' ? 'Über NurseMate AI' : 'About NurseMate AI'}</h3>
         <div className="about-text">
           {language === 'de' ? (
             <>
               <p>Hilft Pflegeauszubildenden in Deutschland, schnell Antworten zu finden.</p>
               <ul>
-                <li>Ausbildungsstruktur</li>
-                <li>Vitalzeichen</li>
-                <li>Medikamentengabe</li>
+                <li>Ausbildungsstruktur & Bewerbung</li>
+                <li>Vitalzeichen & klinische Grundlagen</li>
+                <li>Medikamentengabe (5-R-Regel)</li>
+                <li>Hygiene & Infektionsschutz</li>
+                <li>Pflegedokumentation</li>
+                <li>Notfallsituationen</li>
               </ul>
             </>
           ) : (
             <>
               <p>Helps nursing students in Germany quickly find answers.</p>
               <ul>
-                <li>Training structure</li>
-                <li>Vital signs</li>
-                <li>Medication administration</li>
+                <li>Training structure & application</li>
+                <li>Vital signs & clinical basics</li>
+                <li>Medication administration (5 Rights)</li>
+                <li>Hygiene & infection control</li>
+                <li>Nursing documentation</li>
+                <li>Emergency situations</li>
               </ul>
             </>
           )}
         </div>
       </div>
       
-      <button className="clear-btn" onClick={() => window.location.reload()}>
+      <button className="clear-btn" onClick={onClearChat}>
         🗑️ {language === 'de' ? 'Chat leeren' : 'Clear Chat'}
       </button>
 

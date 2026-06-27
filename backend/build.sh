@@ -9,3 +9,9 @@ python manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 python manage.py migrate
+
+# Build FAISS index if not exists
+if [ ! -d "faiss_index" ]; then
+    echo "Building FAISS index..."
+    python ingest.py
+fi

@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, Menu, X } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, Menu } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import ChatMessage from './components/ChatMessage';
 import RightsModal from './components/RightsModal';
-import { askQuestion } from './api';
+import { askQuestion, clearChatHistory, getChatHistory } from './api';
 
 function App() {
   const [language, setLanguage] = useState('de');
@@ -21,6 +21,25 @@ function App() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const history = await getChatHistory();
+        if (history && history.length > 0) {
+          const loaded = [];
+          history.forEach(h => {
+            loaded.push({ role: 'user', content: h.user });
+            loaded.push({ role: 'bot', content: h.bot });
+          });
+          setMessages(loaded);
+        }
+      } catch {
+        // API henüz bağlanamıyor olabilir, sessizce geç
+      }
+    };
+    loadHistory();
+  }, []);
 
   const quickQuestions = {
     de: [
@@ -56,7 +75,7 @@ function App() {
     try {
       const answer = await askQuestion(text, language);
       setMessages((prev) => [...prev, { role: 'bot', content: answer }]);
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: 'bot', content: language === 'de' ? 'Ein Fehler ist aufgetreten.' : 'An error occurred.' }
@@ -66,15 +85,20 @@ function App() {
     }
   };
 
+  const handleClearChat = async () => {
+    await clearChatHistory();
+    setMessages([]);
+  };
+
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       handleSend(input);
     }
   };
 
   return (
     <div className="app-container">
-      {/* Overlay for mobile sidebar */}
       {isSidebarOpen && (
         <div className="mobile-overlay" onClick={() => setIsSidebarOpen(false)}></div>
       )}
@@ -84,6 +108,7 @@ function App() {
         setLanguage={setLanguage} 
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        onClearChat={handleClearChat}
       />
       
       <main className="chat-area">
@@ -92,7 +117,7 @@ function App() {
             <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
               <Menu size={24} />
             </button>
-            <h1>PflegeKompassAI</h1>
+            <h1>NurseMate AI</h1>
           </div>
           <button 
             className="header-btn"
@@ -108,9 +133,14 @@ function App() {
               <div className="empty-icon">🩺</div>
               <h2 className="empty-title">
                 {language === 'de' 
-                  ? 'Willkommen bei PflegeKompassAI' 
-                  : 'Welcome to PflegeKompassAI'}
+                  ? 'Willkommen bei NurseMate AI' 
+                  : 'Welcome to NurseMate AI'}
               </h2>
+              <p className="empty-subtitle">
+                {language === 'de'
+                  ? 'Ich bin dein KI-Assistent für die Pflegeausbildung. Stelle mir eine Frage!'
+                  : 'I am your AI assistant for nursing training. Ask me anything!'}
+              </p>
               <div className="quick-questions-grid">
                 {quickQuestions[language].map((q, idx) => (
                   <button 
@@ -149,10 +179,10 @@ function App() {
           <div className="input-box">
             <input
               type="text"
-              placeholder={language === 'de' ? 'Frage mich alles...' : 'Ask me anything...'}
+              placeholder={language === 'de' ? 'Frage mich alles über Pflegeausbildung...' : 'Ask me anything about nursing training...'}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               disabled={isLoading}
             />
             <button 

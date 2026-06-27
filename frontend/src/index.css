@@ -242,8 +242,14 @@ body {
 .empty-title {
   font-size: 1.75rem;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   color: var(--text-main);
+}
+
+.empty-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
 }
 
 .quick-questions-grid {

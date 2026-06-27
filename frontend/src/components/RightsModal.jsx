@@ -1,5 +1,3 @@
-import React from 'react';
-
 const RightsModal = ({ isOpen, onClose, language }) => {
   if (!isOpen) return null;
 

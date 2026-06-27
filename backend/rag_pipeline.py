@@ -1,53 +1,74 @@
 """
-rag_pipeline.py — RAG motoru.
+rag_pipeline.py — RAG motoru (v2 — geliştirilmiş).
 FAISS index'ini yükler, Groq LLM'e bağlanır, soru-cevap zinciri kurar.
+Chat history ve cache desteği eklenmiştir.
 """
 
 import os
+import hashlib
 from dotenv import load_dotenv
 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
+from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from langchain_core.messages import HumanMessage, AIMessage
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FAISS_INDEX_PATH = os.path.join(BASE_DIR, "faiss_index")
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
-# ── Sistem Promptları ──────────────────────────────────────────────────────────
+# ── Sistem Promptları (v2 — yapılandırılmış) ─────────────────────────────────
 
-SYSTEM_PROMPT_DE = """Du bist PflegeKompassAI, ein hilfreicher KI-Assistent für Pflegeauszubildende in Deutschland.
-Du hilfst Auszubildenden beim Einstieg in die generalistische Pflegeausbildung und beantwortest ihre Fragen freundlich und kompetent.
+SYSTEM_PROMPT_DE = """Du bist NurseMate AI, ein erfahrener KI-Assistent speziell für Pflegeauszubildende in Deutschland.
 
-Nutze die folgenden Kontextinformationen, um die Frage zu beantworten. 
-Wenn du die Antwort im Kontext findest, nutze sie.
-Wenn die Antwort nicht im Kontext steht, nutze dein allgemeines Wissen über die deutsche Pflegeausbildung und Medizin, um so gut wie möglich zu helfen, anstatt die Antwort zu verweigern. Sei immer unterstützend und informativ.
+DEINE ROLLE:
+- Du hilfst Auszubildenden bei Fragen zur generalistischen Pflegeausbildung
+- Du bist freundlich, professionell und pädagogisch einfühlsam
+- Du verwendest klare, verständliche Sprache (kein unnötiger Fachjargon)
+- Du bist ein vertrauenswürdiger Begleiter für die Ausbildung
 
-Kontext:
+REGELN:
+1. Antworte NUR basierend auf dem untenstehenden Kontext
+2. Strukturiere deine Antworten klar: verwende Aufzählungen, Schritte oder Absätze
+3. Wenn du die Antwort im Kontext findest, nutze sie direkt
+4. Wenn die Antwort NICHT im Kontext steht, sage ehrlich: "Diese Information habe ich leider nicht in meiner Wissensbasis. Bitte wende dich an deine Pflegeschule oder deinen Ausbildungsbetrieb."
+5. Sei immer unterstützend und ermutigend
+6. Bei kritischen Fragen (z.B. Notfälle) weise immer darauf hin, professionelle Hilfe zu suchen
+
+KONTEXT:
 {context}
 
-Frage: {question}
+FRAGE: {question}
 
-Antwort (auf Deutsch, klar und hilfreich für Auszubildende):"""
+ANTWORT (auf Deutsch, klar strukturiert und hilfreich):"""
 
-SYSTEM_PROMPT_EN = """You are PflegeKompassAI, a helpful AI assistant for nursing students in Germany. 
-You help beginners navigate the German nursing training program (Ausbildung) and answer their questions in a friendly and competent manner.
+SYSTEM_PROMPT_EN = """You are NurseMate AI, an experienced AI assistant specifically designed for nursing students (Auszubildende) in Germany.
 
-Use the following context information to answer the question.
-If you find the answer in the context, use it.
-If the answer is not in the context, use your general knowledge about German nursing training and medicine to help as much as possible, instead of refusing to answer. Always be supportive and informative.
+YOUR ROLE:
+- You help students with questions about the German generalist nursing training (Ausbildung)
+- You are friendly, professional, and pedagogically sensitive
+- You use clear, understandable language (avoid unnecessary jargon)
+- You are a trustworthy companion throughout the training
 
-Context:
+RULES:
+1. Answer ONLY based on the context provided below
+2. Structure your answers clearly: use bullet points, steps, or paragraphs
+3. If you find the answer in the context, use it directly
+4. If the answer is NOT in the context, honestly say: "I don't have that specific information in my knowledge base. Please consult your nursing school or training institution."
+5. Always be supportive and encouraging
+6. For critical questions (e.g., emergencies), always advise seeking professional help
+
+CONTEXT:
 {context}
 
-Question: {question}
+QUESTION: {question}
 
-Answer (in English, clear and helpful for nursing students):"""
+ANSWER (in English, clearly structured and helpful):"""
 
 # ── Embedding Loader ───────────────────────────────────────────────────────────
 
@@ -90,8 +111,15 @@ def get_vectorstore():
 
 # ── LLM ───────────────────────────────────────────────────────────────────────
 
+_llm = None
+
+
 def get_llm():
-    """Groq LLM oluşturur. .env'den key alır."""
+    """Groq LLM oluşturur (singleton). .env'den key alır."""
+    global _llm
+    if _llm is not None:
+        return _llm
+
     api_key = os.getenv("GROQ_API_KEY", "")
 
     if not api_key:
@@ -99,36 +127,88 @@ def get_llm():
             "GROQ_API_KEY bulunamadı!\n"
             ".env dosyasına GROQ_API_KEY=... ekleyin"
         )
-    return ChatGroq(
+
+    _llm = ChatGroq(
         model="llama-3.1-8b-instant",
         temperature=0.3,
         max_tokens=1024,
         groq_api_key=api_key,
     )
+    return _llm
+
+
+# ── Cache ──────────────────────────────────────────────────────────────────────
+
+_response_cache = {}
+
+
+def _cache_key(question: str, language: str) -> str:
+    """Cache key oluşturur."""
+    raw = f"{language}:{question.strip().lower()}"
+    return hashlib.md5(raw.encode()).hexdigest()
+
+
+# ── Retriever ─────────────────────────────────────────────────────────────────
+
+_retriever = None
+
+
+def get_retriever():
+    """Retriever'ı singleton olarak döndürür."""
+    global _retriever
+    if _retriever is None:
+        vectorstore = get_vectorstore()
+        _retriever = vectorstore.as_retriever(
+            search_type="similarity",
+            search_kwargs={"k": 5, "fetch_k": 8},
+        )
+    return _retriever
+
+
+def format_docs(docs):
+    """Retrieved doc'ları formatlar."""
+    formatted = []
+    for i, doc in enumerate(docs, 1):
+        source = doc.metadata.get("source", "bilinmeyen kaynak")
+        formatted.append(f"[Kaynak {i}: {source}]\n{doc.page_content}")
+    return "\n\n".join(formatted)
 
 
 # ── RAG Chain ─────────────────────────────────────────────────────────────────
 
 def build_rag_chain(language: str = "en"):
-    """LCEL RAG zinciri oluşturur (LangChain 0.3.x)."""
+    """LCEL RAG zinciri oluşturur — chat history desteği ile."""
     prompt_template = SYSTEM_PROMPT_DE if language == "de" else SYSTEM_PROMPT_EN
 
-    prompt = PromptTemplate(
-        template=prompt_template,
-        input_variables=["context", "question"],
-    )
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", prompt_template),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{question}"),
+    ])
 
-    vectorstore = get_vectorstore()
-    retriever = vectorstore.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k": 4},
-    )
+    def extract_question(x):
+        if isinstance(x, dict):
+            return x.get("question", str(x))
+        return str(x)
 
-    def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
+    def extract_history(x):
+        if isinstance(x, dict):
+            return x.get("chat_history", [])
+        return []
+
+    retriever_chain = get_retriever()
+
+    def retrieve_docs(x):
+        q = extract_question(x)
+        docs = retriever_chain.invoke(q)
+        return format_docs(docs)
 
     chain = (
-        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        {
+            "context": RunnableLambda(retrieve_docs),
+            "question": RunnableLambda(extract_question),
+            "chat_history": RunnableLambda(extract_history),
+        }
         | prompt
         | get_llm()
         | StrOutputParser()
@@ -136,51 +216,87 @@ def build_rag_chain(language: str = "en"):
     return chain
 
 
+# ── Chat History Yönetimi ─────────────────────────────────────────────────────
+
+class ConversationMemory:
+    """Basit chat history yöneticisi."""
+
+    def __init__(self, max_history: int = 6):
+        self.max_history = max_history
+        self.messages: list = []
+
+    def add(self, human_msg: str, ai_msg: str):
+        self.messages.append(HumanMessage(content=human_msg))
+        self.messages.append(AIMessage(content=ai_msg))
+        if len(self.messages) > self.max_history * 2:
+            self.messages = self.messages[-(self.max_history * 2):]
+
+    def get_history(self) -> list:
+        return self.messages.copy()
+
+    def clear(self):
+        self.messages = []
+
+
+_conversations: dict[str, ConversationMemory] = {}
+
+
+def get_conversation(session_id: str = "default") -> ConversationMemory:
+    """Session bazlı conversation memory döndürür."""
+    if session_id not in _conversations:
+        _conversations[session_id] = ConversationMemory()
+    return _conversations[session_id]
+
+
+def clear_conversation(session_id: str = "default"):
+    """Belirli bir session'ı temizler."""
+    if session_id in _conversations:
+        _conversations[session_id].clear()
+
+
 # ── Ana Soru-Cevap Fonksiyonu ─────────────────────────────────────────────────
 
-
 FALLBACK_ANSWERS = {
-    # English
-    "How long does the nursing Ausbildung take?": "The nursing Ausbildung typically takes 3 years (36 months) of full-time training, combining theoretical instruction at a nursing school with practical training in clinical settings.",
-    "What German language level do I need?": "You generally need at least a B2 level of German to start the nursing Ausbildung, as strong communication skills are required for patient care and studying.",
-    "How much do I earn during training?": "Trainees earn a monthly salary which increases each year. Typically, it starts around €1,100 to €1,300 gross in the first year and goes up to €1,300 to €1,500 gross in the third year.",
-    "What are the duties of a nurse?": "Nurses perform basic and treatment care, monitor vital signs, administer medication, document patient progress, and provide emotional support to patients and families.",
-    "How does the nursing exam work?": "The final exam consists of three parts: a written exam (theoretical knowledge), an oral exam, and a practical exam (demonstrating nursing skills on real patients).",
-    "What is Anerkennung (recognition of foreign diplomas)?": "Anerkennung is the official process of evaluating your foreign nursing qualifications to see if they match the German standards, often requiring adaptation courses or exams.",
-    "How do I measure blood pressure correctly?": "Ensure the patient rests for 5 minutes. Place the cuff on the upper arm at heart level, inflate it, and slowly release the pressure while listening for the systolic and diastolic sounds, or use an automatic machine.",
-    "What are the 5 rights of medication safety?": "The 5 Rights are: 1. Right Patient, 2. Right Medication, 3. Right Dose, 4. Right Route (e.g., oral, IV), and 5. Right Time.",
-    # German
-    "Wie lange dauert die Pflegeausbildung?": "Die generalistische Pflegeausbildung dauert in der Regel 3 Jahre (36 Monate) in Vollzeit und besteht aus Theorieprüfungen in der Pflegeschule sowie Praxiseinsätzen in Krankenhäusern oder Pflegeheimen.",
-    "Welches Sprachniveau brauche ich?": "In der Regel wird mindestens das Sprachniveau B2 vorausgesetzt. Starke Deutschkenntnisse sind für die Arbeit am Patienten und den Schulunterricht zwingend erforderlich.",
-    "Wie viel verdiene ich während der Ausbildung?": "Auszubildende erhalten eine Ausbildungsvergütung. Diese liegt im ersten Jahr meist bei ca. 1.100 bis 1.300 Euro brutto und steigt bis zum dritten Jahr auf ca. 1.300 bis 1.500 Euro brutto an.",
-    "Was sind die Aufgaben einer Pflegefachkraft?": "Zu den Aufgaben gehören unter anderem Grund- und Behandlungspflege, Kontrolle der Vitalwerte, Medikamentengabe, Pflegedokumentation sowie die Beratung und Betreuung von Patienten und Angehörigen.",
-    "Wie läuft die Abschlussprüfung ab?": "Die Prüfung ist staatlich anerkannt und gliedert sich in drei Teile: einen schriftlichen Teil, einen mündlichen Teil und einen praktischen Teil direkt am Patienten.",
-    "Was bedeutet 'Anerkennung' (ausländischer Abschlüsse)?": "Die Anerkennung ist das offizielle Verfahren, bei dem geprüft wird, ob eine im Ausland erworbene Pflegequalifikation den deutschen Standards entspricht. Oft sind danach Anpassungslehrgänge oder Kenntnisprüfungen nötig.",
-    "Wie messe ich den Blutdruck richtig?": "Lassen Sie den Patienten 5 Minuten ruhen. Legen Sie die Manschette am Oberarm auf Herzhöhe an, pumpen Sie sie auf und lassen Sie den Druck langsam ab, während Sie die systolischen und diastolischen Werte ermitteln (oder nutzen Sie ein automatisches Gerät).",
-    "Was ist die 5-R-Regel bei der Medikamentengabe?": "Die 5-R-Regel lautet: 1. Richtiger Patient, 2. Richtiges Medikament, 3. Richtige Dosierung, 4. Richtige Applikationsform (z. B. oral, i.v.), und 5. Richtiger Zeitpunkt."
+    "How long does the nursing Ausbildung take?": "The nursing Ausbildung typically takes 3 years (36 months) of full-time training.",
+    "What German language level do I need?": "You generally need at least a B2 level of German to start the nursing Ausbildung.",
+    "How much do I earn during training?": "Trainees earn a monthly salary: ~€1,340 (1st year), ~€1,400 (2nd year), ~€1,500 (3rd year).",
+    "What are the duties of a nurse?": "Nurses perform basic and treatment care, monitor vital signs, administer medication, and document patient progress.",
+    "How does the nursing exam work?": "The final exam consists of three parts: written, oral, and practical.",
+    "How do I measure blood pressure correctly?": "Patient rests 5 minutes. Cuff on upper arm at heart level. Inflate and slowly release while listening for Korotkoff sounds.",
+    "What are the 5 rights of medication safety?": "1. Right Patient, 2. Right Medication, 3. Right Dose, 4. Right Route, 5. Right Time.",
+    "Wie lange dauert die Pflegeausbildung?": "Die generalistische Pflegeausbildung dauert 3 Jahre in Vollzeit.",
+    "Welches Sprachniveau brauche ich?": "Mindestens B2 wird vorausgesetzt.",
+    "Was sind die Aufgaben einer Pflegefachkraft?": "Grund- und Behandlungspflege, Vitalwerte, Medikamentengabe, Dokumentation.",
+    "Wie messe ich den Blutdruck richtig?": "Patient 5 Min ruhen lassen. Manschette am Oberarm, aufpumpen, langsam ablassen. Systolisch = erstes Geräusch, Diastolisch = Verschwinden.",
+    "Was ist die 5-R-Regel bei der Medikamentengabe?": "1. Richtiger Patient, 2. Richtiges Medikament, 3. Richtige Dosierung, 4. Richtige Applikationsform, 5. Richtiger Zeitpunkt."
 }
 
-def ask(question: str, language: str = "en") -> str:
+
+def ask(question: str, language: str = "en", session_id: str = "default") -> str:
     """
     Kullanıcı sorusunu alır, RAG pipeline üzerinden cevap üretir.
-
-    Args:
-        question: Kullanıcının sorusu
-        language: "en" (İngilizce) veya "de" (Almanca)
-
-    Returns:
-        LLM'in ürettiği cevap, AI çökerse varsayılan hazır cevap.
+    Chat history ve cache desteği içerir.
     """
+    key = _cache_key(question, language)
+    if key in _response_cache:
+        return _response_cache[key]
+
     try:
+        conversation = get_conversation(session_id)
         chain = build_rag_chain(language)
-        return chain.invoke(question)
-    except Exception as e:
-        # Hata durumunda statik soruları kontrol et ve onlardan cevap dön
+
+        result = chain.invoke({
+            "question": question,
+            "chat_history": conversation.get_history(),
+        })
+
+        conversation.add(question, result)
+        _response_cache[key] = result
+        return result
+    except Exception:
         fallback = FALLBACK_ANSWERS.get(question.strip())
         if fallback:
             return fallback
-        
-        # Eğer soru listede yoksa genel bir özür mesajı
         if language == "de":
             return "Entschuldigung, unsere Systeme sind derzeit stark ausgelastet. Bitte versuchen Sie es später noch einmal."
         else:
